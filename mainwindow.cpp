@@ -28,6 +28,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->timer->setEnabled(false);
 
     ui->xorKey->setMaxLength(16);
+    ui->executeButton->setEnabled(false);
 
     connect(ui->executeMode, QOverload<int>::of(&QComboBox::currentIndexChanged), this, [=](int index) {
         index == 1 ? ui->timer->setEnabled(true) : ui->timer->setEnabled(false);
@@ -113,6 +114,12 @@ void MainWindow::ValidateXorKey(const QString &xorKey) {
     QString xorKeyText = ui->xorKey->text().toUpper();
     xorKeyText.remove(QRegularExpression("[^0-9A-F]"));
     ui->xorKey->setText(xorKeyText);
+
+    if (xorKeyText.size() != 16) {
+        ui->executeButton->setEnabled(false);
+    } else {
+        ui->executeButton->setEnabled(true);
+    }
 }
 
 QByteArray MainWindow::XorCalculation(const QByteArray &input, const QByteArray &key)

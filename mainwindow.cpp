@@ -43,6 +43,9 @@ void MainWindow::ExecuteModeCheck() {
         timer->setInterval(interval);
         timer->start();
     }
+    else {
+        Execute();
+    }
 }
 
 
